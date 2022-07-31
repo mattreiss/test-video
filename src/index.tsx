@@ -2,6 +2,10 @@
 // npx remotion render <entry-file> HelloWorld out/video.mp4
 
 import {registerRoot} from 'remotion';
-import {RemotionVideo} from './Video';
+import { LoadSkia } from "@shopify/react-native-skia/src/web";
 
-registerRoot(RemotionVideo);
+(async () => {
+  await LoadSkia();
+  const { RemotionVideo } = await import("./Video");
+  registerRoot(RemotionVideo);
+})();
