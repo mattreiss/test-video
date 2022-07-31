@@ -1,5 +1,5 @@
 import React from 'react';
-import {interpolate, useCurrentFrame, Sequence} from 'remotion';
+import {interpolate, useCurrentFrame, useVideoConfig, Sequence, spring} from 'remotion';
 
 const subtitle: React.CSSProperties = {
 	fontSize: 40,
@@ -12,8 +12,18 @@ const subtitle: React.CSSProperties = {
 
 const Text: React.FC = () => {
 	const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
 	const opacity = interpolate(frame, [0, 30], [0, 1]);
-	return (
+
+  const scale = spring({
+    fps,
+    from: 0,
+    to: 5,
+    frame: frame - 32,
+    durationInFrames: 300,
+  });
+  
+  return (
     <Sequence name='text' from={0} durationInFrames={300}>
       <Sequence name='frame text' from={0} durationInFrames={32}>
         <div style={{...subtitle, opacity}}>
@@ -21,12 +31,12 @@ const Text: React.FC = () => {
         </div>
       </Sequence>
       <Sequence name='sample text' from={32}>
-        <div style={{...subtitle, opacity}}>
+        <div style={{...subtitle, transform: `scale(${scale})`}}>
           frame {frame}
         </div>
       </Sequence>
     </Sequence>
-	);
+  );
 };
 
 export default Text;
