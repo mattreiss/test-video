@@ -1,4 +1,5 @@
 import {Composition} from 'remotion';
+import Kapwing from './Kapwing/Kapwing';
 import SkateVideo from './SkateVideo/SkateVideo';
 import Skia from './Skia/Skia';
 import Timelapse from './Timelapse/Timelapse';
@@ -35,7 +36,15 @@ export const RemotionVideo: React.FC = () => {
 			<Composition
 				id="SkateVideo"
 				component={SkateVideo}
-				durationInFrames={3000}
+				durationInFrames={1500}
+				fps={30}
+				width={1920}
+				height={1080}
+			/>
+			<Composition
+				id="Kapwing"
+				component={Kapwing}
+				durationInFrames={1500}
 				fps={30}
 				width={1920}
 				height={1080}
